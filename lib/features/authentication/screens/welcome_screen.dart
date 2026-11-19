@@ -70,16 +70,6 @@ class WelcomeScreen extends StatelessWidget {
 
                   const SizedBox(height: 8),
 
-                  const Text(
-                    'Connect. Grow. Prosper.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.5,
-                      color: Color(0xFF075E2C),
-                    ),
-                  ),
 
                   const Spacer(),
 

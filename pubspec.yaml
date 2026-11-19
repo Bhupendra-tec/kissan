@@ -26,7 +26,7 @@ flutter:
 
   # Kissan application images
   assets:
-    - assets/images/kissan_logo.jpg
+    - assets/images/kissan_logo.png
     - assets/images/welcome_background.jpg
 
 

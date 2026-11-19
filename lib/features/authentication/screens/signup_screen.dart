@@ -13,15 +13,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  String? selectedRole;
-
-  final List<String> roles = [
-    'Farmer',
-    'Buyer',
-    'Wholesaler',
-    'Vet or Agriculture Expert',
-    'Logistic Provider',
-  ];
+  // UserRole is defined in main_navigation_screen.dart
+  UserRole? selectedRole;
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +51,8 @@ class _SignupScreenState extends State<SignupScreen> {
           const SizedBox(height: 16),
 
           // User role dropdown
-          DropdownButtonFormField<String>(
-            value: selectedRole,
+          DropdownButtonFormField<UserRole>(
+            initialValue: selectedRole,
             isExpanded: true,
             decoration: InputDecoration(
               hintText: 'Select Your Role',
@@ -78,11 +71,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
             ),
-            items: roles.map((role) {
-              return DropdownMenuItem<String>(
+            items: UserRole.values.map((role) {
+              return DropdownMenuItem<UserRole>(
                 value: role,
                 child: Text(
-                  role,
+                  role.label,
                   overflow: TextOverflow.ellipsis,
                 ),
               );
@@ -101,7 +94,9 @@ class _SignupScreenState extends State<SignupScreen> {
             height: 60,
             child: ElevatedButton(
               onPressed: () {
-                if (selectedRole == null) {
+                final role = selectedRole;
+
+                if (role == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Please select your role.'),
@@ -110,10 +105,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   return;
                 }
 
+                // Pass the chosen role so the Profile tab can show
+                // the vet profile or the driver profile.
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const MainNavigationScreen(),
+                    builder: (_) => MainNavigationScreen(userRole: role),
                   ),
                       (route) => false,
                 );

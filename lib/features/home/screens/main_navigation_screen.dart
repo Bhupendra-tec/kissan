@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../experts/screens/vet_profile.dart' show VetProfilePage;
 import '../../logistics/screens/driver_profile.dart' show DriverProfilePage;
 import '../../profile/buyer_profile.dart';
+import '../../profile/farmer_profile.dart';
 import '../../profile/wholesaler_profile.dart';
 
 /// Roles a user can pick on the signup screen.
@@ -48,7 +49,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       widget.userRole == UserRole.vet ||
       widget.userRole == UserRole.logisticProvider ||
       widget.userRole == UserRole.wholesaler ||
-      widget.userRole == UserRole.buyer;
+      widget.userRole == UserRole.buyer ||
+      widget.userRole == UserRole.farmer;
 
   Widget _buildProfilePage() {
     switch (widget.userRole) {
@@ -61,12 +63,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       case UserRole.buyer:
         return const BuyerProfilePage();
       case UserRole.farmer:
+        return const FarmerProfilePage();
       default:
-        return const _SimplePage(
-          title: 'Profile',
-          icon: Icons.person_outline,
-          description: 'Your profile',
-        );
+        return const FarmerProfilePage();
     }
   }
 

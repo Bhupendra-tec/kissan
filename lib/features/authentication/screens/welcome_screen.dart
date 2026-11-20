@@ -62,7 +62,7 @@ class WelcomeScreen extends StatelessWidget {
 
                   // Keep this logo only if the image file exists.
                   Image.asset(
-                    'assets/images/kissan_logo.jpg',
+                    'assets/images/kissan_logo.png',
                     width: 280,
                     height: 150,
                     fit: BoxFit.contain,

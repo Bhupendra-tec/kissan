@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Path: lib/features/home/screens/main_navigation_screen.dart
 import '../../experts/screens/vet_profile.dart' show VetProfilePage;
 import '../../logistics/screens/driver_profile.dart' show DriverProfilePage;
+import '../../profile/wholesaler_profile.dart';
 
 /// Roles a user can pick on the signup screen.
 enum UserRole { farmer, buyer, wholesaler, vet, logisticProvider }
@@ -44,7 +45,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   /// True when this role has its own full profile screen.
   bool get _hasCustomProfile =>
       widget.userRole == UserRole.vet ||
-          widget.userRole == UserRole.logisticProvider;
+      widget.userRole == UserRole.logisticProvider ||
+      widget.userRole == UserRole.wholesaler;
 
   Widget _buildProfilePage() {
     switch (widget.userRole) {
@@ -52,6 +54,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         return const VetProfilePage();
       case UserRole.logisticProvider:
         return const DriverProfilePage();
+      case UserRole.wholesaler:
+        return const WholesalerProfilePage();
+      case UserRole.buyer:
+      case UserRole.farmer:
       default:
         return const _SimplePage(
           title: 'Profile',

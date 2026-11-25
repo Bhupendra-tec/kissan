@@ -7,6 +7,7 @@ import '../../logistics/screens/driver_profile.dart' show DriverProfilePage;
 import '../../profile/buyer_profile.dart';
 import '../../profile/farmer_profile.dart';
 import '../../profile/wholesaler_profile.dart';
+import '../../kyc/wholesaler/screens/temporary_wholesaler_dashboard.dart';
 
 /// Roles a user can pick on the signup screen.
 enum UserRole { farmer, buyer, wholesaler, vet, logisticProvider }
@@ -75,6 +76,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     if (selectedIndex == _profileIndex) {
       final profile = _buildProfilePage();
       return _hasCustomProfile ? profile : SafeArea(child: profile);
+    }
+
+    if (selectedIndex == 0 && widget.userRole == UserRole.wholesaler) {
+      return const TemporaryWholesalerDashboard();
     }
 
     const pages = <Widget>[

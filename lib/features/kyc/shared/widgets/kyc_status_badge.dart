@@ -30,7 +30,6 @@ class KYCStatusBadge extends StatelessWidget {
         icon = Icons.hourglass_top_rounded;
         break;
       case KYCVerificationStatus.unverified:
-      default:
         label = 'Pending KYC';
         color = KYCDashboardTheme.primaryBlue.withValues(alpha: 0.8);
         icon = Icons.access_time_filled;

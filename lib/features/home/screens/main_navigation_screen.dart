@@ -7,6 +7,7 @@ import '../../logistics/screens/driver_profile.dart' show DriverProfilePage;
 import '../../profile/buyer_profile.dart';
 import '../../profile/farmer_profile.dart';
 import '../../profile/wholesaler_profile.dart';
+import '../../kyc/farmer/screens/farmer_kyc_dashboard.dart';
 import '../../kyc/wholesaler/screens/temporary_wholesaler_dashboard.dart';
 
 /// Roles a user can pick on the signup screen.
@@ -80,6 +81,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
     if (selectedIndex == 0 && widget.userRole == UserRole.wholesaler) {
       return const TemporaryWholesalerDashboard();
+    }
+
+    if (selectedIndex == 0 && widget.userRole == UserRole.farmer) {
+      return const FarmerKYCDashboard();
     }
 
     const pages = <Widget>[

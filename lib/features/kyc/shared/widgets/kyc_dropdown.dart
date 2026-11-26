@@ -9,6 +9,7 @@ class KYCReusableDropdown<T> extends StatelessWidget {
   final T? selectedValue;
   final List<DropdownMenuItem<T>> items;
   final ValueChanged<T?> onChanged;
+  final bool isExpanded;
 
   const KYCReusableDropdown({
     super.key,
@@ -17,6 +18,7 @@ class KYCReusableDropdown<T> extends StatelessWidget {
     required this.selectedValue,
     required this.items,
     required this.onChanged,
+    this.isExpanded = true,
   });
 
   @override
@@ -25,6 +27,7 @@ class KYCReusableDropdown<T> extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16.0),
       child: DropdownButtonFormField<T>(
         initialValue: selectedValue,
+        isExpanded: isExpanded,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(

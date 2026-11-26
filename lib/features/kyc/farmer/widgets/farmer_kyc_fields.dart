@@ -193,7 +193,11 @@ class FarmerKYCFormFields extends StatelessWidget {
           items: FarmerKYCConstants.farmTypes.map((type) {
             return DropdownMenuItem<String>(
               value: type,
-              child: Text(type),
+              child: Text(
+                type,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             );
           }).toList(),
           onChanged: onFarmTypeChanged,
@@ -205,7 +209,11 @@ class FarmerKYCFormFields extends StatelessWidget {
           items: FarmerKYCConstants.landOwnershipTypes.map((type) {
             return DropdownMenuItem<String>(
               value: type,
-              child: Text(type),
+              child: Text(
+                type,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             );
           }).toList(),
           onChanged: onLandOwnershipChanged,

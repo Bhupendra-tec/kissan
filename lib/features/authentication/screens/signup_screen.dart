@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'google_signin_screen.dart';
 import '../../home/screens/main_navigation_screen.dart';
+import '../../logistics/models/logistics_session.dart';
 import '../widgets/auth_widgets.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -15,6 +16,20 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   // UserRole is defined in main_navigation_screen.dart
   UserRole? selectedRole;
+
+  final _nameCtrl = TextEditingController();
+  final _emailCtrl = TextEditingController();
+  final _passwordCtrl = TextEditingController();
+  final _addressCtrl = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameCtrl.dispose();
+    _emailCtrl.dispose();
+    _passwordCtrl.dispose();
+    _addressCtrl.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +47,29 @@ class _SignupScreenState extends State<SignupScreen> {
 
           const SizedBox(height: 28),
 
-          const AuthTextField(hint: 'Name'),
+          AuthTextField(hint: 'Name', controller: _nameCtrl),
 
           const SizedBox(height: 16),
 
-          const AuthTextField(
+          AuthTextField(
             hint: 'Email',
             keyboardType: TextInputType.emailAddress,
+            controller: _emailCtrl,
           ),
 
           const SizedBox(height: 16),
 
-          const AuthTextField(
+          AuthTextField(
             hint: 'Password',
             obscureText: true,
+            controller: _passwordCtrl,
+          ),
+
+          const SizedBox(height: 16),
+
+          AuthTextField(
+            hint: 'Address',
+            controller: _addressCtrl,
           ),
 
           const SizedBox(height: 16),
@@ -103,6 +127,20 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   );
                   return;
+                }
+
+                // Start an in-memory logistics session (no backend) so the
+                // dashboard/profile can show the signed-up user's info.
+                if (role == UserRole.logisticProvider) {
+                  LogisticsSession.instance.start(
+                    LogisticsUser.initial(
+                      name: _nameCtrl.text.trim().isEmpty
+                          ? 'Logistics Partner'
+                          : _nameCtrl.text.trim(),
+                      role: role.label,
+                      address: _addressCtrl.text.trim(),
+                    ),
+                  );
                 }
 
                 // Pass the chosen role so the Profile tab can show

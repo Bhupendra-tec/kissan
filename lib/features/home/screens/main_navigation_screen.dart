@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Path: lib/features/home/screens/main_navigation_screen.dart
 import '../../experts/screens/vet_profile.dart' show VetProfilePage;
 import '../../logistics/screens/driver_profile.dart' show DriverProfilePage;
+import '../../logistics/screens/logistics_dashboard.dart' show LogisticsDashboard;
 import '../../profile/buyer_profile.dart';
 import '../../profile/farmer_profile.dart';
 import '../../profile/wholesaler_profile.dart';
@@ -78,8 +79,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       return _hasCustomProfile ? profile : SafeArea(child: profile);
     }
 
+    // Wholesalers get a dedicated dashboard on the Home tab.
     if (selectedIndex == 0 && widget.userRole == UserRole.wholesaler) {
       return const TemporaryWholesalerDashboard();
+    }
+
+    // Logistics providers get a dedicated dashboard on the Home tab.
+    if (widget.userRole == UserRole.logisticProvider && selectedIndex == 0) {
+      return const LogisticsDashboard();
     }
 
     const pages = <Widget>[

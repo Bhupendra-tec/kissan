@@ -73,6 +73,56 @@ class ProfileConfig {
     this.settingsBefore = const [],
     this.settingsAfter = const [],
   });
+
+  /// Returns a copy with selected fields replaced. Used by role pages that
+  /// need to tweak the shared config at runtime (e.g. pre/post KYC states).
+  ProfileConfig copyWith({
+    String? id,
+    Color? primary,
+    Color? dark,
+    Color? tint,
+    Color? background,
+    Color? verifiedColor,
+    String? initials,
+    String? name,
+    String? nameLocal,
+    String? title,
+    String? titleLocal,
+    List<(IconData, String)>? badges,
+    String? onLabel,
+    String? offLabel,
+    List<StatItem>? stats,
+    List<ProfileSection>? sections,
+    String? alertTitle,
+    String? alertSubtitle,
+    IconData? alertIcon,
+    List<Widget>? settingsBefore,
+    List<Widget>? settingsAfter,
+  }) {
+    return ProfileConfig(
+      id: id ?? this.id,
+      primary: primary ?? this.primary,
+      dark: dark ?? this.dark,
+      tint: tint ?? this.tint,
+      background: background ?? this.background,
+      verifiedColor: verifiedColor ?? this.verifiedColor,
+      initials: initials ?? this.initials,
+      name: name ?? this.name,
+      nameLocal: nameLocal ?? this.nameLocal,
+      title: title ?? this.title,
+      titleLocal: titleLocal ?? this.titleLocal,
+      badges: badges ?? this.badges,
+      onLabel: onLabel ?? this.onLabel,
+      offLabel: offLabel ?? this.offLabel,
+      stats: stats ?? this.stats,
+      sections: sections ?? this.sections,
+      alertTitle: alertTitle ?? this.alertTitle,
+      alertSubtitle: alertSubtitle ?? this.alertSubtitle,
+      alertIcon: alertIcon ?? this.alertIcon,
+      settingsBefore: settingsBefore ?? this.settingsBefore,
+      settingsAfter: settingsAfter ?? this.settingsAfter,
+    );
+  }
 }
 
 // ===================================================== colors for child widgets

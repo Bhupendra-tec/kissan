@@ -248,6 +248,7 @@ class DarkProfileCard extends StatelessWidget {
 class DarkBannerCard extends StatelessWidget {
   final String? avatarPath;
   final String? avatarUrl;
+  final String? initials;
   final String name;
   final String role;
   final String location;
@@ -260,6 +261,7 @@ class DarkBannerCard extends StatelessWidget {
     super.key,
     this.avatarPath,
     this.avatarUrl,
+    this.initials,
     required this.name,
     required this.role,
     required this.location,
@@ -317,6 +319,7 @@ class DarkBannerCard extends StatelessWidget {
                     DarkProfileAvatar(
                       avatarPath: avatarPath,
                       avatarUrl: avatarUrl,
+                      initials: initials,
                       onImagePicked: onImagePicked,
                       size: 78,
                     ),

@@ -16,15 +16,16 @@ class VetProfilePage extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 24),
           children: [
             dark.DarkBannerCard(
-              name: 'Dr. Sameer Wagle',
-              role: 'वरिष्ठ पशु चिकित्सक तथा बाली विज्ञ',
-              location: 'भरतपुर-१० चितवन र ललितपुर सेवा केन्द्र (पुलचोक)',
+              name: 'Dr.Sameer',
+              role: 'वरिष्ठ पशु चिकित्सक',
+              location: 'भरतपुर-१०, चितवन',
               isVerified: true,
               onEditPressed: () {},
               stats: [
                 dark.StatItem(icon: Icons.workspace_premium, value: '12+ वर्ष', label: 'अनुभव'),
                 dark.StatItem(icon: Icons.forum_outlined, value: '१,८४०+', label: 'परामर्श'),
               ],
+              initials: 'SW',
             ),
             const SizedBox(height: 16),
             dark.DarkSectionHeader(icon: Icons.verified_user_outlined, title: 'योग्यता र अनुमतिपत्र (License)'),

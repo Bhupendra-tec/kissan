@@ -2,11 +2,16 @@
 import 'package:flutter/material.dart';
 
 // Path: lib/features/home/screens/main_navigation_screen.dart
+import '../../kyc/buyer/screens/buyer_kyc_dashboard.dart';
+import '../../kyc/farmer/screens/farmer_kyc_dashboard.dart';
+import '../../kyc/expert/screens/temporary_expert_dashboard.dart';
 import '../../experts/screens/vet_profile.dart' show VetProfilePage;
 import '../../logistics/screens/driver_profile.dart' show DriverProfilePage;
+import '../../logistics/screens/logistics_dashboard.dart' show LogisticsDashboard;
 import '../../profile/buyer_profile.dart';
 import '../../profile/farmer_profile.dart';
 import '../../profile/wholesaler_profile.dart';
+import '../../kyc/wholesaler/screens/temporary_wholesaler_dashboard.dart';
 
 /// Roles a user can pick on the signup screen.
 enum UserRole { farmer, buyer, wholesaler, vet, logisticProvider }
@@ -75,6 +80,30 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     if (selectedIndex == _profileIndex) {
       final profile = _buildProfilePage();
       return _hasCustomProfile ? profile : SafeArea(child: profile);
+    }
+
+    // Farmers get their dedicated KYC dashboard.
+    if (selectedIndex == 0 && widget.userRole == UserRole.farmer) {
+      return const FarmerKYCDashboard();
+    }
+
+    // Buyers get their dedicated KYC dashboard.
+    if (selectedIndex == 0 && widget.userRole == UserRole.buyer) {
+      return const BuyerKYCDashboard();
+    }
+
+    if (selectedIndex == 0 && widget.userRole == UserRole.vet) {
+      return const TemporaryExpertDashboard();
+    }
+
+    // Wholesalers get a dedicated dashboard on the Home tab.
+    if (selectedIndex == 0 && widget.userRole == UserRole.wholesaler) {
+      return const TemporaryWholesalerDashboard();
+    }
+
+    // Logistics providers get a dedicated dashboard on the Home tab.
+    if (widget.userRole == UserRole.logisticProvider && selectedIndex == 0) {
+      return const LogisticsDashboard();
     }
 
     const pages = <Widget>[

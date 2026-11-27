@@ -29,7 +29,7 @@ class _WholesalerProfilePageState extends State<WholesalerProfilePage> {
     super.initState();
     _profile = widget.initialProfile ??
         UserProfileData.initialSample().copyWith(
-          role: 'Tier-1 Wholesaler',
+          role: 'Wholesaler',
           firstName: 'Jivanath',
           lastName: 'Subedi',
           address: 'Birgunj Inland Trade Hub, Parsa',

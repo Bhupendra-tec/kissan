@@ -248,6 +248,7 @@ class DarkProfileCard extends StatelessWidget {
 class DarkBannerCard extends StatelessWidget {
   final String? avatarPath;
   final String? avatarUrl;
+  final String? initials;
   final String name;
   final String role;
   final String location;
@@ -260,6 +261,7 @@ class DarkBannerCard extends StatelessWidget {
     super.key,
     this.avatarPath,
     this.avatarUrl,
+    this.initials,
     required this.name,
     required this.role,
     required this.location,
@@ -317,119 +319,134 @@ class DarkBannerCard extends StatelessWidget {
                     DarkProfileAvatar(
                       avatarPath: avatarPath,
                       avatarUrl: avatarUrl,
+                      initials: initials,
                       onImagePicked: onImagePicked,
                       size: 78,
                     ),
                     const SizedBox(width: 14),
-                    // Name & Details
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
+// Name & Details
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(minWidth: 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Flexible(
-                                child: Text(
-                                  name.isEmpty ? 'Set Your Name' : name,
-                                  style: const TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: DarkProfileTheme.textWhite,
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: Text(
+                                    name.isEmpty ? 'Set Your Name' : name,
+                                    style: const TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: DarkProfileTheme.textWhite,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                              if (isVerified) ...[
-                                const SizedBox(width: 6),
-                                const Icon(
-                                  Icons.verified,
-                                  color: DarkProfileTheme.primaryGreen,
-                                  size: 18,
-                                ),
+                                if (isVerified) ...[
+                                  const SizedBox(width: 6),
+                                  const Icon(
+                                    Icons.verified,
+                                    color: DarkProfileTheme.primaryGreen,
+                                    size: 18,
+                                  ),
+                                ],
                               ],
-                            ],
-                          ),
-                          const SizedBox(height: 6),
-                          // Role Pill Tag
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 3,
                             ),
-                            decoration: BoxDecoration(
-                              color: DarkProfileTheme.tagGreenBg,
-                              borderRadius: BorderRadius.circular(16),
+                            const SizedBox(height: 6),
+                            // Role Pill Tag
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 3,
+                              ),
+                              decoration: BoxDecoration(
+                                color: DarkProfileTheme.tagGreenBg,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.eco,
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    role,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            child: Row(
+                            const SizedBox(height: 6),
+                            Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Icon(
-                                  Icons.eco,
-                                  size: 12,
-                                  color: Colors.white,
+                                  Icons.location_on,
+                                  size: 14,
+                                  color: DarkProfileTheme.textMuted,
                                 ),
                                 const SizedBox(width: 4),
-                                Text(
-                                  role,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: Text(
+                                    location.isEmpty ? 'Set Location' : location,
+                                    style: const TextStyle(
+                                      color: DarkProfileTheme.textMuted,
+                                      fontSize: 13,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                          const SizedBox(height: 6),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.location_on,
-                                size: 14,
-                                color: DarkProfileTheme.textMuted,
-                              ),
-                              const SizedBox(width: 4),
-                              Expanded(
-                                child: Text(
-                                  location.isEmpty ? 'Set Location' : location,
-                                  style: const TextStyle(
-                                    color: DarkProfileTheme.textMuted,
-                                    fontSize: 13,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Edit Profile Button
-                    OutlinedButton.icon(
-                      onPressed: onEditPressed,
-                      icon: const Icon(Icons.edit, size: 14, color: Colors.white),
-                      label: const Text(
-                        'Edit Profile',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                        side: const BorderSide(color: Colors.white38),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          ],
                         ),
                       ),
                     ),
-                  ],
+                      // Edit Profile Button
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 130),
+                          child: OutlinedButton.icon(
+                            onPressed: onEditPressed,
+                            icon: const Icon(Icons.edit, size: 14, color: Colors.white),
+                            label: const Text(
+                              'Edit Profile',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                              side: const BorderSide(color: Colors.white38),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                 ),
                 const SizedBox(height: 18),
                 const Divider(color: Colors.white12, height: 1),

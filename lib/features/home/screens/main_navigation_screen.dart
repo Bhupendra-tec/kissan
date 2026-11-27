@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Path: lib/features/home/screens/main_navigation_screen.dart
+import '../../kyc/buyer/screens/buyer_kyc_dashboard.dart';
+import '../../kyc/farmer/screens/farmer_kyc_dashboard.dart';
 import '../../kyc/expert/screens/temporary_expert_dashboard.dart';
 import '../../experts/screens/vet_profile.dart' show VetProfilePage;
 import '../../logistics/screens/driver_profile.dart' show DriverProfilePage;
@@ -78,6 +80,16 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     if (selectedIndex == _profileIndex) {
       final profile = _buildProfilePage();
       return _hasCustomProfile ? profile : SafeArea(child: profile);
+    }
+
+    // Farmers get their dedicated KYC dashboard.
+    if (selectedIndex == 0 && widget.userRole == UserRole.farmer) {
+      return const FarmerKYCDashboard();
+    }
+
+    // Buyers get their dedicated KYC dashboard.
+    if (selectedIndex == 0 && widget.userRole == UserRole.buyer) {
+      return const BuyerKYCDashboard();
     }
 
     if (selectedIndex == 0 && widget.userRole == UserRole.vet) {

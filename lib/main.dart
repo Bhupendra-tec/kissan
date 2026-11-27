@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'features/authentication/screens/welcome_screen.dart';
 
@@ -25,4 +24,3 @@ class KissanApp extends StatelessWidget {
     );
   }
 }
-

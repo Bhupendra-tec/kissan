@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import '../../kyc/shared/theme/kyc_theme.dart';
 
 /// In-memory (no-backend) state for the logistics user.
 ///
@@ -11,6 +12,7 @@ class LogisticsUser {
   final String role;
   final String address;
   final bool kycFilled;
+  final KYCVerificationStatus kycStatus;
 
   // Filled-in KYC details (meaningful only once kycFilled == true)
   final String phone;
@@ -27,6 +29,7 @@ class LogisticsUser {
     required this.role,
     this.address = '',
     this.kycFilled = false,
+    this.kycStatus = KYCVerificationStatus.unverified,
     this.phone = '',
     this.licenseNumber = '',
     this.vehicleType = '',
@@ -51,6 +54,7 @@ class LogisticsUser {
     String? role,
     String? address,
     bool? kycFilled,
+    KYCVerificationStatus? kycStatus,
     String? phone,
     String? licenseNumber,
     String? vehicleType,
@@ -65,6 +69,7 @@ class LogisticsUser {
       role: role ?? this.role,
       address: address ?? this.address,
       kycFilled: kycFilled ?? this.kycFilled,
+      kycStatus: kycStatus ?? this.kycStatus,
       phone: phone ?? this.phone,
       licenseNumber: licenseNumber ?? this.licenseNumber,
       vehicleType: vehicleType ?? this.vehicleType,
@@ -88,6 +93,7 @@ class LogisticsSession extends ChangeNotifier {
 
   bool get isLoggedIn => _user != null;
   bool get isKycFilled => _user?.kycFilled ?? false;
+  KYCVerificationStatus get kycStatus => _user?.kycStatus ?? KYCVerificationStatus.unverified;
 
   /// Start (or restart) a session for a freshly signed-up/logged-in user.
   void start(LogisticsUser user) {
@@ -95,9 +101,15 @@ class LogisticsSession extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Save the KYC form result and mark the user as verified.
+  /// Save the KYC form result and mark the user as submitted for verification.
+  void submitKyc(LogisticsUser user) {
+    _user = user.copyWith(kycFilled: false, kycStatus: KYCVerificationStatus.submitted);
+    notifyListeners();
+  }
+
+  /// Mark KYC as fully verified.
   void completeKyc(LogisticsUser user) {
-    _user = user.copyWith(kycFilled: true);
+    _user = user.copyWith(kycFilled: true, kycStatus: KYCVerificationStatus.verified);
     notifyListeners();
   }
 

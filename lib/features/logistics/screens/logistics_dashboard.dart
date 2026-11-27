@@ -22,10 +22,13 @@ class LogisticsDashboard extends StatefulWidget {
 }
 
 class _LogisticsDashboardState extends State<LogisticsDashboard> {
+  late KYCVerificationStatus _status;
+
   @override
   void initState() {
     super.initState();
     LogisticsSession.instance.addListener(_onChange);
+    _status = _computeInitialStatus();
     // Show the "please fill KYC" popup once when the dashboard appears.
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybePromptKyc());
   }
@@ -40,6 +43,23 @@ class _LogisticsDashboardState extends State<LogisticsDashboard> {
     if (mounted) setState(() {});
   }
 
+  KYCVerificationStatus _computeInitialStatus() {
+    final session = LogisticsSession.instance;
+    return session.kycStatus;
+  }
+
+  void _toggleTestStatus(KYCVerificationStatus newStatus) {
+    setState(() {
+      _status = newStatus;
+      // Also update session for demo purposes
+      if (LogisticsSession.instance.user != null) {
+        LogisticsSession.instance.update(
+          LogisticsSession.instance.user!.copyWith(kycStatus: newStatus),
+        );
+      }
+    });
+  }
+
   bool _prompted = false;
   void _maybePromptKyc() {
     if (_prompted) return;
@@ -48,12 +68,6 @@ class _LogisticsDashboardState extends State<LogisticsDashboard> {
     if (session.isLoggedIn && !session.isKycFilled) {
       _showKycPromptDialog();
     }
-  }
-
-  KYCVerificationStatus get _kycStatus {
-    final session = LogisticsSession.instance;
-    if (!session.isKycFilled) return KYCVerificationStatus.unverified;
-    return KYCVerificationStatus.verified;
   }
 
   void _showKycPromptDialog() {
@@ -78,7 +92,9 @@ class _LogisticsDashboardState extends State<LogisticsDashboard> {
       MaterialPageRoute(builder: (_) => const LogisticsKycScreen()),
     );
     if (result != null && mounted) {
-      setState(() {});
+      setState(() {
+        _status = result;
+      });
     }
   }
 
@@ -86,7 +102,7 @@ class _LogisticsDashboardState extends State<LogisticsDashboard> {
   Widget build(BuildContext context) {
     final session = LogisticsSession.instance;
     final user = session.user;
-    final status = _kycStatus;
+    final status = _status;
     final isVerified = status == KYCVerificationStatus.verified;
     final name = (user?.name.isNotEmpty ?? false) ? user!.name : 'Logistics Partner';
     final initial = _initials(name);
@@ -97,6 +113,30 @@ class _LogisticsDashboardState extends State<LogisticsDashboard> {
         bottom: false,
         child: Column(
           children: [
+            // KYC Status Bar (Unverified, Submitted, Verified)
+            Container(
+              color: Colors.black87,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              child: Row(
+                children: [
+                  const Text(
+                    'Logistics KYC:',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  _buildStateChoiceChip('Unverified', KYCVerificationStatus.unverified),
+                  const SizedBox(width: 6),
+                  _buildStateChoiceChip('Submitted', KYCVerificationStatus.submitted),
+                  const SizedBox(width: 6),
+                  _buildStateChoiceChip('Verified', KYCVerificationStatus.verified),
+                ],
+              ),
+            ),
+
             // 1. TOP HEADER BANNER (Logistics Specific Info)
             KYCHeaderBanner(
               name: name,
@@ -329,5 +369,27 @@ class _LogisticsDashboardState extends State<LogisticsDashboard> {
     if (parts.isEmpty) return 'LP';
     if (parts.length == 1) return parts.first.substring(0, 1).toUpperCase();
     return (parts.first[0] + parts.last[0]).toUpperCase();
+  }
+
+  Widget _buildStateChoiceChip(String label, KYCVerificationStatus targetStatus) {
+    final isSelected = _status == targetStatus;
+    return GestureDetector(
+      onTap: () => _toggleTestStatus(targetStatus),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: isSelected ? KYCDashboardTheme.primaryBlue : Colors.white12,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.white70,
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }

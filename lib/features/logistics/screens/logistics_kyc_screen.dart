@@ -58,7 +58,7 @@ class _LogisticsKycScreenState extends State<LogisticsKycScreen> {
     final earnings = double.tryParse(_earningsCtrl.text) ?? 0;
     final trips = 250 + (current.name.length * 7);
 
-    session.completeKyc(
+    session.submitKyc(
       current.copyWith(
         phone: _phoneCtrl.text.trim(),
         licenseNumber: _licenseCtrl.text.trim(),
@@ -71,7 +71,7 @@ class _LogisticsKycScreenState extends State<LogisticsKycScreen> {
       ),
     );
 
-    Navigator.pop(context, KYCVerificationStatus.verified);
+    Navigator.pop(context, KYCVerificationStatus.submitted);
   }
 
   @override

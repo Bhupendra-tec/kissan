@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Path: lib/features/home/screens/main_navigation_screen.dart
+import '../../kyc/expert/screens/temporary_expert_dashboard.dart';
 import '../../experts/screens/vet_profile.dart' show VetProfilePage;
 import '../../logistics/screens/driver_profile.dart' show DriverProfilePage;
 import '../../logistics/screens/logistics_dashboard.dart' show LogisticsDashboard;
@@ -77,6 +78,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     if (selectedIndex == _profileIndex) {
       final profile = _buildProfilePage();
       return _hasCustomProfile ? profile : SafeArea(child: profile);
+    }
+
+    if (selectedIndex == 0 && widget.userRole == UserRole.vet) {
+      return const TemporaryExpertDashboard();
     }
 
     // Wholesalers get a dedicated dashboard on the Home tab.

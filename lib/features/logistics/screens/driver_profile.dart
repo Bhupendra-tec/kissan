@@ -88,7 +88,7 @@ class _DriverProfilePageState extends State<DriverProfilePage> {
             dark.DarkSectionHeader(icon: Icons.local_shipping_outlined, title: 'सवारी विवरण (Vehicle)'),
             dark.DarkProfileCard(
               child: Column(children: [
-                dark.DarkInfoRow(icon: Icons.local_shipping_outlined, label: 'मिनी ट्रक (Refrigerated)', value: 'क्षमता: १.५ टन • कोल्ड बक्स जडित'),
+                dark.DarkInfoRow(icon: Icons.local_shipping_outlined, label: 'मिनी ट्रक', value: 'क्षमता: १.५ टन • कोल्ड बक्स जडित'),
                 dark.DarkInfoRow(icon: Icons.pin_outlined, label: 'नम्बर प्लेट', value: 'बा २ ख ४५६७ (नमुना)'),
                 dark.DarkInfoRow(icon: Icons.thermostat_outlined, label: 'तापक्रम नियन्त्रण', value: '२°C – ८°C (दूध तथा तरकारी)'),
                 dark.DarkInfoRow(icon: Icons.gps_fixed, label: 'GPS ट्र्याकिङ', value: 'सक्रिय छ'),
@@ -98,8 +98,8 @@ class _DriverProfilePageState extends State<DriverProfilePage> {
             dark.DarkSectionHeader(icon: Icons.description_outlined, title: 'कागजात तथा इजाजतपत्र (Documents)'),
             dark.DarkProfileCard(
               child: Column(children: [
-                dark.DarkInfoRow(icon: Icons.description_outlined, label: 'सवारी चालक अनुमतिपत्र (Driving License)', value: 'नविकृत: २०२९'),
-                dark.DarkInfoRow(icon: Icons.description_outlined, label: 'सवारी दर्ता किताब (Bluebook)', value: 'नविकृत: २०२७'),
+                dark.DarkInfoRow(icon: Icons.description_outlined, label: 'चालक अनुमतिपत्र', value: 'नविकृत: २०२९'),
+                dark.DarkInfoRow(icon: Icons.description_outlined, label: 'दर्ता किताब (Bluebook)', value: 'नविकृत: २०२७'),
                 dark.DarkInfoRow(icon: Icons.description_outlined, label: 'बीमा (Vehicle Insurance)', value: 'म्याद सकिँदै: ६० दिन'),
               ]),
             ),
@@ -178,11 +178,11 @@ class _DriverProfilePageState extends State<DriverProfilePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('६२% पूरा', style: TextStyle(fontSize: 12, color: Colors.black54)),
-              Text('अनुमानित आगमन: १ घण्टा ४० मिनेट', style: TextStyle(fontSize: 12, color: Colors.black54)),
+              Text('ETA: १ घण्टा ४० मिनेट', style: TextStyle(fontSize: 12, color: Colors.black54)),
             ],
           ),
           const Divider(height: 22),
-          dark.DarkInfoRow(icon: Icons.inventory_2_outlined, label: 'दूध ४०० लि. (Cold chain)', value: 'धादिङ दुग्ध सहकारी संघ → काठमाडौं डेरी'),
+          dark.DarkInfoRow(icon: Icons.inventory_2_outlined, label: 'दूध ४०० लि. (Cold chain)', value: 'धादिङ सहकारी → काठमाडौं डेरी'),
           const SizedBox(height: 4),
           Row(children: [
             Expanded(child: OutlinedButton.icon(onPressed: () {}, icon: const Icon(Icons.call_outlined), label: const Text('सम्पर्क'))),
